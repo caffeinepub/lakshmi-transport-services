@@ -1,0 +1,282 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ── Mona Sans (Display / Headings) ── */
+@font-face {
+  font-family: "Mona Sans";
+  src: url("/assets/fonts/Mona-Sans.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ── General Sans (Body) ── */
+@font-face {
+  font-family: "General Sans";
+  src: url("/assets/fonts/GeneralSans-Variable.woff2") format("woff2");
+  font-weight: 100 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@layer base {
+  :root {
+    --radius: 0.5rem;
+
+    /* ── Brand Palette — Navy + Amber ── */
+    /* Background: off-white warm */
+    --background: 0.98 0.005 80;
+    --foreground: 0.15 0.02 255;
+
+    /* Card */
+    --card: 1 0 0;
+    --card-foreground: 0.15 0.02 255;
+
+    /* Popover */
+    --popover: 1 0 0;
+    --popover-foreground: 0.15 0.02 255;
+
+    /* Primary = Deep Navy */
+    --primary: 0.22 0.06 255;
+    --primary-foreground: 0.98 0 0;
+
+    /* Secondary = Mid Navy */
+    --secondary: 0.94 0.012 240;
+    --secondary-foreground: 0.22 0.06 255;
+
+    /* Muted */
+    --muted: 0.94 0.008 240;
+    --muted-foreground: 0.50 0.025 240;
+
+    /* Accent = Warm Amber */
+    --accent: 0.72 0.17 65;
+    --accent-foreground: 0.12 0.02 255;
+
+    /* Destructive */
+    --destructive: 0.577 0.245 27.325;
+    --destructive-foreground: 0.985 0 0;
+
+    /* Border / Input / Ring */
+    --border: 0.88 0.012 240;
+    --input: 0.88 0.012 240;
+    --ring: 0.72 0.17 65;
+
+    /* Charts */
+    --chart-1: 0.72 0.17 65;
+    --chart-2: 0.22 0.06 255;
+    --chart-3: 0.55 0.14 240;
+    --chart-4: 0.80 0.14 80;
+    --chart-5: 0.60 0.18 55;
+
+    /* Sidebar */
+    --sidebar: 0.18 0.055 255;
+    --sidebar-foreground: 0.98 0 0;
+    --sidebar-primary: 0.72 0.17 65;
+    --sidebar-primary-foreground: 0.12 0.02 255;
+    --sidebar-accent: 0.28 0.065 255;
+    --sidebar-accent-foreground: 0.98 0 0;
+    --sidebar-border: 0.30 0.05 255;
+    --sidebar-ring: 0.72 0.17 65;
+
+    /* Custom brand tokens */
+    --navy: 0.18 0.07 255;
+    --navy-mid: 0.25 0.065 255;
+    --navy-light: 0.35 0.055 255;
+    --amber: 0.72 0.17 65;
+    --amber-light: 0.82 0.15 75;
+    --amber-dark: 0.60 0.18 55;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: "General Sans", sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: "Mona Sans", sans-serif;
+  }
+}
+
+@layer utilities {
+  .font-display {
+    font-family: "Mona Sans", sans-serif;
+  }
+
+  .font-body {
+    font-family: "General Sans", sans-serif;
+  }
+
+  .text-amber {
+    color: oklch(var(--amber));
+  }
+
+  .bg-navy {
+    background-color: oklch(var(--navy));
+  }
+
+  .bg-navy-mid {
+    background-color: oklch(var(--navy-mid));
+  }
+
+  .bg-amber {
+    background-color: oklch(var(--amber));
+  }
+
+  .bg-amber-light {
+    background-color: oklch(var(--amber-light));
+  }
+
+  .border-amber {
+    border-color: oklch(var(--amber));
+  }
+
+  .animate-fade-in-up {
+    animation: fadeInUp 0.7s ease-out forwards;
+  }
+
+  .animate-count-up {
+    animation: fadeInUp 0.6s ease-out forwards;
+  }
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .hero-overlay {
+    background:
+      /* Left-anchored deep navy curtain for text legibility */
+      linear-gradient(
+        100deg,
+        oklch(0.10 0.07 255 / 0.97) 0%,
+        oklch(0.12 0.07 255 / 0.92) 30%,
+        oklch(0.14 0.06 255 / 0.80) 52%,
+        oklch(0.16 0.05 255 / 0.45) 72%,
+        oklch(0.18 0.04 255 / 0.10) 100%
+      ),
+      /* Vertical top-to-bottom deepening so sky doesn't blow out */
+      linear-gradient(
+        180deg,
+        oklch(0.10 0.06 255 / 0.40) 0%,
+        transparent 40%,
+        oklch(0.08 0.05 255 / 0.50) 100%
+      );
+  }
+
+  .section-reveal {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.7s ease-out, transform 0.7s ease-out;
+  }
+
+  .section-reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .card-hover {
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease, background-color 0.3s ease;
+    box-shadow: 0 2px 12px oklch(0.18 0.07 255 / 0.07);
+  }
+
+  .card-hover:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 24px 48px oklch(0.18 0.07 255 / 0.18), 0 0 0 1px oklch(0.72 0.17 65 / 0.35);
+    border-color: oklch(var(--amber));
+    background-color: oklch(1 0 0);
+  }
+
+  /* Service card left accent line */
+  .service-card {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .service-card::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 20%;
+    height: 60%;
+    width: 3px;
+    background: linear-gradient(
+      180deg,
+      transparent 0%,
+      oklch(0.72 0.17 65) 30%,
+      oklch(0.72 0.17 65) 70%,
+      transparent 100%
+    );
+    border-radius: 0 2px 2px 0;
+    opacity: 0;
+    transform: scaleY(0.6);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+  }
+
+  .service-card:hover::before {
+    opacity: 1;
+    transform: scaleY(1);
+  }
+
+  /* Amber shimmer button */
+  .btn-shimmer {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .btn-shimmer::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 60%;
+    height: 100%;
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      oklch(1 0 0 / 0.25) 50%,
+      transparent 100%
+    );
+    transform: skewX(-20deg);
+    transition: none;
+  }
+
+  .btn-shimmer:hover::after {
+    animation: shimmer-sweep 0.55s ease-out forwards;
+  }
+
+  @keyframes shimmer-sweep {
+    from { left: -80%; }
+    to   { left: 140%; }
+  }
+
+  .grain-bg {
+    position: relative;
+  }
+
+  .grain-bg::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 1;
+    opacity: 0.3;
+  }
+}
